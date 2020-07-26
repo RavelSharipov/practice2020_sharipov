@@ -14,51 +14,64 @@ namespace SurfClub.Models.DBModels
 
         ///<summary>
         ///Псевдоним
-        ///</summary>
-        [Display(Name = "Псевдоним")]
-        [Required(ErrorMessage = "Ошибка в псевдониме"), MinLength(3), MaxLength(20)]
+        ///</summary> 
+        [Display(Name = "Псевдоним*")]
+        [Required(ErrorMessage = "Указание псевдонима обязательно")]
+        [RegularExpression(@"^[a-zA-Z0-9а-я''-'\s]{3,20}$", ErrorMessage = "Ошибка в псевдониме")]
+
         public string Nickname { get; set; }
         ///<summary>
         ///Электронная почта
         ///</summary>
-        [Display(Name = "Почта")]
+        [Display(Name = "Почта*")]
         [Required(ErrorMessage = "Указание электронной почты обязательно")]
+        [StringLength(31, ErrorMessage = "Максимальная длина 31 символ")]
         [EmailAddress(ErrorMessage = "Неверно указан электронный адрес")]
         public string Email { get; set; }
         ///<summary>
         ///Пароль
         ///</summary>
-        [Display(Name = "Пароль")]
-        [Required(ErrorMessage = "Ошибка в пароле"), MinLength(6), MaxLength(20)]
+        [Display(Name = "Пароль*")]
+        [StringLength(31, ErrorMessage = "Максимальная длина 31 символ")]
+        [Required(ErrorMessage = "Указание пароля обязательно")]
+        [RegularExpression(@"^[a-zA-Z0-9''-'\s]{6,20}$",ErrorMessage = "Ошибка в пароле")]
         public string Password { get; set; }
 
-        [Display(Name = "Подтвердите пароль")]
+        [Display(Name = "Подтвердите пароль*")]
         [NotMapped]
         public string PasswordConfirm { get; set; }
         ///<summary>
         ///Фамилия
         ///</summary>
         [Display(Name = "Фамилия")]
+        [StringLength(31, ErrorMessage = "Максимальная длина 31 символ")]
         public string Lastname { get; set; }
         ///<summary>
         ///Имя
         ///</summary>
         [Display(Name = "Имя")]
+        [StringLength(31, ErrorMessage = "Максимальная длина 31 символ")]
         public string Name { get; set; }
         ///<summary>
         ///Контактная информация
         ///</summary>
         [Display(Name = "Контактная информация")]
+        [StringLength(255, ErrorMessage = "Максимальная длина 255 символов")]
+
         public string ContactInfo { get; set; }
         ///<summary>
         ///О себе
         ///</summary>
         [Display(Name = "О себе")]
+        [StringLength(255, ErrorMessage = "Максимальная длина 255 символов")]
+
         public string About { get; set; }
         ///<summary>
         ///Достижения
         ///</summary>
         [Display(Name = "Достижения")]
+        [StringLength(255, ErrorMessage = "Максимальная длина 255 символов")]
+
         public string Achivements { get; set; }
         ///<summary>
         ///Фото

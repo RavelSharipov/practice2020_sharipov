@@ -18,12 +18,12 @@
                 </div>
                 <div class=" panel-body">
 
-                        @Html.LabelFor(model => model.Text)
-                        @Html.TextAreaFor(model => model.Text, 10, 250, new { htmlAttributes = new { @class = "form-control" } })
-
-                        @Html.LabelFor(model => model.Photo)
-                        <input name="imageData" type="file" accept="image/jpeg" />
-                        <button type="submit" class="btn button-style" style="margin-left: auto">Добавить</button>                  
+                    @Html.LabelFor(model => model.Text)
+                    @Html.TextAreaFor(model => model.Text, 10, 450, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Text)
+                    @Html.LabelFor(model => model.Photo)
+                    <input name="imageData" type="file" accept="image/jpeg" />
+                    <button type="submit" class="btn button-style" style="margin-left: auto">Добавить</button>
                 </div>
             </div>
         </form>
@@ -51,17 +51,16 @@
         </div>
         <div class=" panel-body">
 
-            <p style="font-family:Arial"> @post.Text </p>
+            <div style="word-break: break-all;">@post.Text</div>
 
-            @if (@post.Photo != Guid.Empty)
+            @if (post.Photo != Guid.Empty)
             {
-                var url = SurfClub.Helpers.ImageUrlHelper.GetUrl(post.Photo);
-                <div>
-                    <img src="@Url.Content(url)" class="full-width" width="800" />
-                </div>
+                var url = string.Format("~/Content/Images/Uploads/{0}.jpg", @post.Photo.ToString());
+                <img src=@Url.Content(url) style="width:100%; height:auto" />
             }
 
-            </div>
+
+        </div>
     </div>
 
 }

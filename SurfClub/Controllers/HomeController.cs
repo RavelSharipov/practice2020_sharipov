@@ -1,4 +1,5 @@
 ﻿using SurfClub.DAL;
+using SurfClub.Helpers;
 using SurfClub.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,26 +16,26 @@ namespace SurfClub.Controllers
 
         public ActionResult Index()
         {
+            if (TempData["errorMessage"] != null)
+            {
+                ViewBag.Message = TempData["errorMessage"].ToString();
+            }
+
             return View();
         }
-
 
         [HttpPost]
         public ActionResult Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var userInDb = dbContext.Users.FirstOrDefault(
-                    c => c.Nickname == model.Nickname &&
-                    c.Password == model.Password
-                    );
+                var userInDb = dbContext.Users.FirstOrDefault(c => c.Nickname == model.Nickname && c.Password == model.Password);
                 if (userInDb != null)
                 {
-                    FormsAuthentication.SetAuthCookie(userInDb.Nickname, model.RememberMe);
+                    FormsAuthentication.SetAuthCookie(userInDb.Nickname, false);
                     Session["UserId"] = userInDb.Id.ToString();
                     Session["Nickname"] = userInDb.Nickname;
-                    Session["Photo"] = userInDb.Photo.ToString();
-
+                    Session["Photo"] = ImageUrlHelper.GetUrl(userInDb.Photo);
 
                     return RedirectToAction("Index", "Feed");
                 }
@@ -45,18 +46,13 @@ namespace SurfClub.Controllers
             }
             return View("Index", model);
         }
-
-        public ActionResult Logout()
+        public ActionResult Logout(LoginViewModel model)
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
             Request.Cookies.Clear();
-            return RedirectToAction("Index");
-        }
 
-        public ActionResult Reg()
-        {
-            return RedirectToAction("Index", "Register");
+            return RedirectToAction("Index", "Feed");
         }
     }
 }

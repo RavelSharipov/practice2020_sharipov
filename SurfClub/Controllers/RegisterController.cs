@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using WebApplication1.Helpers;
 
 namespace SurfClub.Controllers
 {
@@ -47,6 +48,11 @@ namespace SurfClub.Controllers
 
                 if (imageData != null)
                 {
+                    if (!ImageFormatHelper.IsJpg(imageData))
+                    {
+                        ModelState.AddModelError(string.Empty, "Загруженное изображение не картинка формата JPG");
+                        return View("Index", model);
+                    }
                     model.Photo = ImageSaveHelper.SaveImage(imageData);
                 }
 
@@ -61,8 +67,6 @@ namespace SurfClub.Controllers
                 return RedirectToAction("Index", "Feed");
             }
             return View("Index", model);
-
         }
-
     }
 }

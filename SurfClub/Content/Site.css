@@ -79,3 +79,36 @@ label {
     list-style-type: none;
 }
 
+
+.wrap {
+    white-space: pre-wrap; /* CSS3 */
+    white-space: -moz-pre-wrap; /* Firefox */
+    white-space: -pre-wrap; /* Opera <7 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* IE */
+}
+
+.nick-photo {
+    height: 50px;
+    width: 50px;
+    border-radius: 19px;
+    margin: 7px 10px 0px 0px;
+}
+
+.exit-button {
+    width: 22px;
+    height: 23px;
+    margin: 15px 13px 15px 20px;
+}
+
+.Row {
+    display: table;
+    width: auto; /*Optional*/
+    table-layout: fixed; /*Optional*/
+    border-spacing: 10px; /*Optional*/
+}
+
+.Column {
+    display: table-cell;
+    background-color: white; /*Optional*/
+}

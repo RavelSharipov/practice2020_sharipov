@@ -10,7 +10,7 @@ namespace SurfClub.Models.DBModels
     {
         [Key]
         public int Id { get; set; }
-        [Display(Name = "Введите текст"), MaxLength(4095)]
+        [Display(Name = "Введите текст"), MaxLength(4095, ErrorMessage = "Максимальное количество символов 4095")]
         ///<summary>
         ///Текст
         ///</summary>
